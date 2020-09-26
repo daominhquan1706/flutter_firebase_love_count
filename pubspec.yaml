@@ -30,6 +30,7 @@ dependencies:
   jiffy: ^3.0.1
   google_fonts: ^1.1.0
   flutter_rounded_date_picker: ^1.0.5
+  date_time_format: ^1.1.0
 
 dev_dependencies:
   flutter_test:

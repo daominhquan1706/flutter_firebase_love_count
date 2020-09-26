@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/helper/utils.dart';
 import 'package:flutter_app/services/authentication_service.dart';
 import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
@@ -213,12 +214,23 @@ class _LoginPageState extends State<LoginPage>
   Widget _buildCountDateText() {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 30.0),
-      child: Text(
-        Jiffy(_startDate).fromNow(),
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 50,
-        ),
+      child: Column(
+        children: [
+          Text(
+            DateUtils.countDate(_startDate),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 50,
+            ),
+          ),
+          Text(
+            "(${Jiffy(_startDate).fromNow()})",
+            style: TextStyle(
+              color: Colors.white54,
+              fontSize: 20,
+            ),
+          )
+        ],
       ),
     );
   }
