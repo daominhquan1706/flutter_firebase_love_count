@@ -1,16 +1,13 @@
 import 'dart:ui';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/helper/utils.dart';
-import 'package:flutter_app/services/authentication_service.dart';
+import 'package:flutter_app/ui/login_dialog.dart';
 import 'package:flutter_rounded_date_picker/rounded_picker.dart';
-import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -175,7 +172,7 @@ class _LoginPageState extends State<LoginPage>
           child: SizedBox(
             width: double.infinity,
             child: RaisedButton(
-              color: Colors.pink[200],
+              color: Theme.of(context).accentColor,
               shape: ContinuousRectangleBorder(
                 borderRadius: BorderRadius.circular(40),
               ),
@@ -205,7 +202,12 @@ class _LoginPageState extends State<LoginPage>
               ),
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) => LoginDialog(),
+            );
+          },
         )
       ],
     );
@@ -216,12 +218,13 @@ class _LoginPageState extends State<LoginPage>
       padding: const EdgeInsets.symmetric(vertical: 30.0),
       child: Column(
         children: [
-          Text(
+          AutoSizeText(
             DateUtils.countDate(_startDate),
             style: TextStyle(
               color: Colors.white,
               fontSize: 50,
             ),
+            maxLines: 1,
           ),
           Text(
             "(${Jiffy(_startDate).fromNow()})",
