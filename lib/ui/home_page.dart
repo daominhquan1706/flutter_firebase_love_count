@@ -1,7 +1,7 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/authentication_service.dart';
+import 'package:flutter_app/services/authentication_service.dart';
 import 'package:flutter_app/helper/utils.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:provider/provider.dart';

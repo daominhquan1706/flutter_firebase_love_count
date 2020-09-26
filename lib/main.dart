@@ -1,9 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/authentication_service.dart';
+import 'package:flutter_app/services/authentication_service.dart';
 import 'package:flutter_app/ui/home_page.dart';
 import 'package:flutter_app/ui/login_page.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -29,10 +30,19 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          accentColor: Colors.pink[300],
+          primarySwatch: Colors.pink,
           visualDensity: VisualDensity.adaptivePlatformDensity,
+          textTheme: GoogleFonts.latoTextTheme(
+            Theme.of(context).textTheme,
+          ),
         ),
         home: AuthenticationWrapper(),
+        locale: Locale('en', 'US'), // Việt Nam
+        supportedLocales: [
+          const Locale('en', 'US'), // English
+          const Locale('vi', 'VN'), // Việt Nam
+        ],
       ),
     );
   }
