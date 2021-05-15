@@ -1,14 +1,34 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_app/model/user_model.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationService {
-  final FirebaseAuth _firebaseAuth;
-  AuthenticationService(this._firebaseAuth);
+  //Set up SingleTon
+  static AuthenticationService get instance => _instance;
+  AuthenticationService._privateConstructor();
+  static final AuthenticationService _instance =
+      AuthenticationService._privateConstructor();
 
-  Stream<User> get authStateChanges => _firebaseAuth.authStateChanges();
+  FirebaseAuth _firebaseAuth;
+  void setFirebaseAuth(FirebaseAuth firebaseAuth) {
+    _firebaseAuth = firebaseAuth;
+  }
 
+  StreamController authStateController = new StreamController<UserApp>();
+  //Stream<User> get authStateChanges => _firebaseAuth.authStateChanges();
+  Stream<UserApp> get authStateChanges => authStateController.stream;
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
+  }
+
+  void dispose() {
+    authStateController.close();
+  }
+
+  void changeAuthState(UserApp user) {
+    authStateController.sink.add(user);
   }
 
   Future<String> signIn({String email, String password}) async {

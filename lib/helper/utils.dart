@@ -13,8 +13,8 @@ class ScreenInfo {
   }
 }
 
-class DateUtils {
+class DateHelper {
   static String countDate(DateTime date) {
-    return DateTimeFormat.relative(date, levelOfPrecision: 3,abbr: true);
+    return DateTimeFormat.relative(date, levelOfPrecision: 3, abbr: true);
   }
 }

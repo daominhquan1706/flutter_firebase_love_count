@@ -1,5 +1,6 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/viewController/login_controller.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class LoginDialog extends StatefulWidget {
@@ -10,6 +11,7 @@ class LoginDialog extends StatefulWidget {
 }
 
 class _LoginDialogState extends State<LoginDialog> {
+  final viewModel = LoginViewController();
   var width;
   var height;
   @override
@@ -54,7 +56,11 @@ class _LoginDialogState extends State<LoginDialog> {
                         return LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
-                          colors: [Colors.black,Colors.black, Colors.transparent],
+                          colors: [
+                            Colors.black,
+                            Colors.black,
+                            Colors.transparent
+                          ],
                         ).createShader(
                             Rect.fromLTRB(0, 0, rect.width, rect.height));
                       },
@@ -122,7 +128,9 @@ class _LoginDialogState extends State<LoginDialog> {
                 child: SignInButton(
                   Buttons.Google,
                   padding: EdgeInsets.only(left: 10),
-                  onPressed: () {},
+                  onPressed: () {
+                    viewModel.login(LoginType.google_login);
+                  },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),

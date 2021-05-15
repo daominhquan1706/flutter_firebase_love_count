@@ -5,9 +5,9 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/helper/utils.dart';
-import 'package:flutter_app/ui/login_dialog.dart';
-import 'package:flutter_rounded_date_picker/rounded_picker.dart';
+import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:jiffy/jiffy.dart';
+import '../ui/dialog/login_dialog.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -219,7 +219,7 @@ class _LoginPageState extends State<LoginPage>
       child: Column(
         children: [
           AutoSizeText(
-            DateUtils.countDate(_startDate),
+            DateHelper.countDate(_startDate),
             style: TextStyle(
               color: Colors.white,
               fontSize: 50,
