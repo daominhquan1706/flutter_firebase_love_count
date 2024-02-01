@@ -1,10 +1,10 @@
 import 'package:flare_flutter/flare_actor.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/services/authentication_service.dart';
-import 'package:flutter_app/helper/utils.dart';
+import 'package:flutter_lovecount/services/authentication_service.dart';
+import 'package:flutter_lovecount/helper/utils.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget user({@required String imageUrl, @required String userName}) {
+  Widget user({required String imageUrl, required String userName}) {
     return Container(
       child: Column(
         children: [
@@ -171,12 +171,17 @@ class _HomePageState extends State<HomePage> {
             leading: Icon(FontAwesome5.calendar_alt),
             title: Text('Thay đổi ngày'),
             onTap: () async {
-              loveDate = await showDatePicker(
+              final date = await showDatePicker(
                 context: context,
                 initialDate: loveDate,
                 firstDate: DateTime(0),
                 lastDate: DateTime(9999),
               );
+              if (date != null) {
+                setState(() {
+                  loveDate = date;
+                });
+              }
             },
           ),
           ListTile(
@@ -189,7 +194,7 @@ class _HomePageState extends State<HomePage> {
             leading: Icon(FontAwesome5.power_off),
             title: Text('Đăng xuất'),
             onTap: () {
-              context.read<AuthenticationService>().signOut();
+              Get.find< AuthenticationService>().signOut();
             },
           ),
         ],

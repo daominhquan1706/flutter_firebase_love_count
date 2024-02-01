@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "293110607839",
+    "firebase_url": "https://lovecount-eb812.firebaseio.com",
+    "project_id": "lovecount-eb812",
+    "storage_bucket": "lovecount-eb812.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:293110607839:android:01417214ba4dc5671b1e6a",
+        "android_client_info": {
+          "package_name": "com.example.flutter_lovecount"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "293110607839-gqasvbbvd3oec6efbvuh4oip28n6m215.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVWsqAmJ4UppmtpPMlnpNuSfnXOpbvXgE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "293110607839-gqasvbbvd3oec6efbvuh4oip28n6m215.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "293110607839-c2697umnceqshfgav0ia16d26kd4t120.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.daominhquan.loveapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

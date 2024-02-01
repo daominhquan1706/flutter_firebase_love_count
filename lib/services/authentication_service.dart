@@ -1,25 +1,18 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_app/model/user_model.dart';
+import 'package:flutter_lovecount/model/user_model.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class AuthenticationService {
-  //Set up SingleTon
-  static AuthenticationService get instance => _instance;
-  AuthenticationService._privateConstructor();
-  static final AuthenticationService _instance =
-      AuthenticationService._privateConstructor();
+class AuthenticationService  extends GetxService{
 
-  FirebaseAuth _firebaseAuth;
-  void setFirebaseAuth(FirebaseAuth firebaseAuth) {
-    _firebaseAuth = firebaseAuth;
-  }
+  late FirebaseAuth _firebaseAuth;
 
   StreamController authStateController = new StreamController<UserApp>();
   //Stream<User> get authStateChanges => _firebaseAuth.authStateChanges();
-  Stream<UserApp> get authStateChanges => authStateController.stream;
-  Future<void> signOut() async {
+  Stream<dynamic> get authStateChanges => authStateController.stream;
+  FutureOr<void> signOut() async {
     await _firebaseAuth.signOut();
   }
 
@@ -31,38 +24,35 @@ class AuthenticationService {
     authStateController.sink.add(user);
   }
 
-  Future<String> signIn({String email, String password}) async {
+  FutureOr<String> signIn({required String email, required  String password}) async {
     try {
-      await _firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
+      await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
       return "Signed in";
     } on FirebaseAuthException catch (e) {
-      return e.message;
+      return e.message ?? "Error";
     }
   }
 
-  Future<String> signUp({String email, String password}) async {
+  FutureOr<String> signUp({required String email, required  String password}) async {
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
-          email: email, password: password);
+      await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
       return "Signed up";
     } on FirebaseAuthException catch (e) {
-      return e.message;
+      return e.message ?? "Error";
     }
   }
 
-  Future<UserCredential> signInWithGoogle() async {
+  FutureOr<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
-    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     // Obtain the auth details from the request
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
+    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
 
     // Create a new credential
-    final GoogleAuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
+    final OAuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
     );
 
     // Once signed in, return the UserCredential

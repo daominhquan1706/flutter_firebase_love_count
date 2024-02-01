@@ -1,13 +1,15 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_app/model/user_model.dart';
-import 'package:flutter_app/services/authentication_service.dart';
+import 'dart:async';
+
+import 'package:flutter_lovecount/model/user_model.dart';
+import 'package:flutter_lovecount/services/authentication_service.dart';
+import 'package:get/get.dart';
 
 enum LoginType { google_login, facebook_login, apple_login }
 
 class LoginViewController {
-  AuthenticationService _authenticationService = AuthenticationService.instance;
+  AuthenticationService get _authenticationService => Get.find<AuthenticationService>();
 
-  Future login(LoginType loginType) async {
+  FutureOr<void> login(LoginType loginType) async {
     switch (loginType) {
       case LoginType.google_login:
         var user = UserApp("Haha");

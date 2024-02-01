@@ -4,30 +4,29 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/helper/utils.dart';
+import 'package:flutter_lovecount/helper/utils.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:jiffy/jiffy.dart';
 import '../ui/dialog/login_dialog.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key key}) : super(key: key);
+  LoginPage({Key? key}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage>
-    with SingleTickerProviderStateMixin {
-  TabController _tabController;
+class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin {
+  late TabController _tabController;
   DateTime _startDate = DateTime.now();
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: 2);
-    Jiffy.locale("vi").then((value) {
-      setState(() {});
-    });
+    // Jiffy.locale("vi").then((value) {
+    //   setState(() {});
+    // });
   }
 
   @override
@@ -85,16 +84,16 @@ class _LoginPageState extends State<LoginPage>
   }
 
   Widget myButton({
-    VoidCallback onPressed,
-    IconData icon,
-    String title,
+    required VoidCallback onPressed,
+    required IconData icon,
+    String? title,
     Color color = Colors.blue,
   }) {
     return Container(
       width: double.infinity,
       height: 65,
       child: Card(
-        child: RaisedButton(
+        child: ElevatedButton(
           child: Expanded(
             child: Text(
               title ?? "",
@@ -102,7 +101,6 @@ class _LoginPageState extends State<LoginPage>
               style: TextStyle(color: Colors.white),
             ),
           ),
-          color: color,
           onPressed: onPressed,
         ),
       ),
@@ -171,11 +169,7 @@ class _LoginPageState extends State<LoginPage>
           ),
           child: SizedBox(
             width: double.infinity,
-            child: RaisedButton(
-              color: Theme.of(context).accentColor,
-              shape: ContinuousRectangleBorder(
-                borderRadius: BorderRadius.circular(40),
-              ),
+            child: ElevatedButton(
               child: Padding(
                 padding: padding2,
                 child: Text(
@@ -192,7 +186,7 @@ class _LoginPageState extends State<LoginPage>
             ),
           ),
         ),
-        FlatButton(
+        TextButton(
           child: Padding(
             padding: padding2,
             child: Text(
@@ -227,7 +221,7 @@ class _LoginPageState extends State<LoginPage>
             maxLines: 1,
           ),
           Text(
-            "(${Jiffy(_startDate).fromNow()})",
+            "(${Jiffy.parseFromDateTime(_startDate).fromNow()})",
             style: TextStyle(
               color: Colors.white54,
               fontSize: 20,
@@ -244,7 +238,7 @@ class _LoginPageState extends State<LoginPage>
         CupertinoRoundedDatePicker.show(
           context,
           textColor: Colors.white,
-          background: Colors.pink[300],
+          background: Colors.pink[300] ?? Colors.white,
           borderRadius: 16,
           initialDatePickerMode: CupertinoDatePickerMode.date,
           locale: Locale('vi', 'VN'),
@@ -255,7 +249,7 @@ class _LoginPageState extends State<LoginPage>
           maximumYear: DateTime.now().year,
           onDateTimeChanged: (newDateTime) {
             setState(() {
-              if (newDateTime != null && newDateTime.isBefore(DateTime.now())) {
+              if (newDateTime.isBefore(DateTime.now())) {
                 _startDate = newDateTime;
               }
             });
@@ -275,7 +269,7 @@ class _LoginPageState extends State<LoginPage>
           child: Row(
             children: [
               Text(
-                Jiffy(_startDate).yMMMMEEEEd,
+                Jiffy.parseFromDateTime(_startDate).yMMMMEEEEd,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 18,

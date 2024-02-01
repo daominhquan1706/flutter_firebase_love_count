@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>293110607839-enl1fsqgvv19tb47hmumketvi9hbnc46.apps.googleusercontent.com</string>
+	<string>293110607839-9i5e3tu72vtaa4o9tj95622lq9eq43q5.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.293110607839-enl1fsqgvv19tb47hmumketvi9hbnc46</string>
+	<string>com.googleusercontent.apps.293110607839-9i5e3tu72vtaa4o9tj95622lq9eq43q5</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>293110607839-5so1e74grjleqjhrgrn9k7rl6jmf4llu.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.daominhquan.flutterApp</string>
+	<string>com.example.flutterLovecount</string>
 	<key>PROJECT_ID</key>
 	<string>lovecount-eb812</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:293110607839:ios:d1c17aeb5f09ce371b1e6a</string>
+	<string>1:293110607839:ios:4e5d3a882cf896841b1e6a</string>
 	<key>DATABASE_URL</key>
 	<string>https://lovecount-eb812.firebaseio.com</string>
 </dict>

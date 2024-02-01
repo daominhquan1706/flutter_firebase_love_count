@@ -1,10 +1,10 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/viewController/login_controller.dart';
+import 'package:flutter_lovecount/viewController/login_controller.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class LoginDialog extends StatefulWidget {
-  LoginDialog({Key key}) : super(key: key);
+  LoginDialog({Key? key}) : super(key: key);
 
   @override
   _LoginDialogState createState() => _LoginDialogState();
@@ -56,13 +56,8 @@ class _LoginDialogState extends State<LoginDialog> {
                         return LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.black,
-                            Colors.black,
-                            Colors.transparent
-                          ],
-                        ).createShader(
-                            Rect.fromLTRB(0, 0, rect.width, rect.height));
+                          colors: [Colors.black, Colors.black, Colors.transparent],
+                        ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
                       },
                       blendMode: BlendMode.dstIn,
                       child: FlareActor(
@@ -99,7 +94,7 @@ class _LoginDialogState extends State<LoginDialog> {
           Text(
             "Đăng nhập",
             style: TextStyle(
-              color: Theme.of(context).accentColor,
+              color: Theme.of(context).primaryColor,
               fontSize: 30,
               fontWeight: FontWeight.bold,
             ),
@@ -159,8 +154,7 @@ class _LoginDialogState extends State<LoginDialog> {
         ),
         Divider(),
         Container(
-          decoration: BoxDecoration(
-              color: Colors.black, borderRadius: BorderRadius.circular(30)),
+          decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.circular(30)),
           width: double.infinity,
           child: Row(
             mainAxisSize: MainAxisSize.max,
