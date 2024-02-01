@@ -1,30 +1,38 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_lovecount/model/user_model.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class AuthenticationService  extends GetxService{
-
+class AuthenticationService extends GetxService {
   late FirebaseAuth _firebaseAuth;
 
-  StreamController authStateController = new StreamController<UserApp>();
-  //Stream<User> get authStateChanges => _firebaseAuth.authStateChanges();
-  Stream<dynamic> get authStateChanges => authStateController.stream;
+  Rx<User?> currentUser = Rx<User?>(null);
+
+  @override
+  void onInit() {
+    super.onInit();
+    _firebaseAuth = FirebaseAuth.instance;
+    currentUser.value = _firebaseAuth.currentUser;
+    _firebaseAuth.authStateChanges().listen((User? user) {
+      if (user == null) {
+        currentUser.value = null;
+      } else {
+        currentUser.value = user;
+      }
+    });
+  }
+
   FutureOr<void> signOut() async {
     await _firebaseAuth.signOut();
   }
 
   void dispose() {
-    authStateController.close();
+    currentUser.close();
   }
 
-  void changeAuthState(UserApp user) {
-    authStateController.sink.add(user);
-  }
-
-  FutureOr<String> signIn({required String email, required  String password}) async {
+  FutureOr<String> signIn({required String email, required String password}) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
       return "Signed in";
@@ -33,7 +41,7 @@ class AuthenticationService  extends GetxService{
     }
   }
 
-  FutureOr<String> signUp({required String email, required  String password}) async {
+  FutureOr<String> signUp({required String email, required String password}) async {
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
       return "Signed up";

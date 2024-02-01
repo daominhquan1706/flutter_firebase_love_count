@@ -1,6 +1,6 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_lovecount/viewController/login_controller.dart';
+import 'package:flutter_lovecount/pages/login/controller.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class LoginDialog extends StatefulWidget {
@@ -11,7 +11,7 @@ class LoginDialog extends StatefulWidget {
 }
 
 class _LoginDialogState extends State<LoginDialog> {
-  final viewModel = LoginViewController();
+  final viewModel = LoginController();
   var width;
   var height;
   @override

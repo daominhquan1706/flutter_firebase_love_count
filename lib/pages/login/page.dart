@@ -5,30 +5,13 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lovecount/helper/utils.dart';
+import 'package:flutter_lovecount/pages/login/controller.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
+import 'package:get/get.dart';
 import 'package:jiffy/jiffy.dart';
-import '../ui/dialog/login_dialog.dart';
+import '../../ui/dialog/login_dialog.dart';
 
-class LoginPage extends StatefulWidget {
-  LoginPage({Key? key}) : super(key: key);
-
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-  DateTime _startDate = DateTime.now();
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(vsync: this, length: 2);
-    // Jiffy.locale("vi").then((value) {
-    //   setState(() {});
-    // });
-  }
-
+class LoginPage extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -57,7 +40,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
 
   Widget _buildTabPage() {
     return TabBarView(
-      controller: _tabController,
+      controller: controller.tabController,
       children: [
         _buildLoginPage(),
         Container(),
@@ -69,7 +52,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32.0),
       child: Container(
-        width: MediaQuery.of(context).size.width,
+        width: Get.width,
         child: Column(
           children: [
             Spacer(),
@@ -132,7 +115,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   Widget _buildHeader() {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 30),
-      width: MediaQuery.of(context).size.width,
+      width: Get.width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -181,7 +164,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                 ),
               ),
               onPressed: () {
-                _tabController.animateTo(1);
+                controller.tabController.animateTo(1);
               },
             ),
           ),
@@ -197,10 +180,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
             ),
           ),
           onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) => LoginDialog(),
-            );
+            Get.dialog(LoginDialog());
           },
         )
       ],
@@ -210,24 +190,26 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   Widget _buildCountDateText() {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 30.0),
-      child: Column(
-        children: [
-          AutoSizeText(
-            DateHelper.countDate(_startDate),
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 50,
+      child: Obx(
+        () => Column(
+          children: [
+            AutoSizeText(
+              DateHelper.countDate(controller.startDate.value),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 50,
+              ),
+              maxLines: 1,
             ),
-            maxLines: 1,
-          ),
-          Text(
-            "(${Jiffy.parseFromDateTime(_startDate).fromNow()})",
-            style: TextStyle(
-              color: Colors.white54,
-              fontSize: 20,
-            ),
-          )
-        ],
+            Text(
+              "(${Jiffy.parseFromDateTime(controller.startDate.value).fromNow()})",
+              style: TextStyle(
+                color: Colors.white54,
+                fontSize: 20,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -236,23 +218,21 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
     return GestureDetector(
       onTap: () async {
         CupertinoRoundedDatePicker.show(
-          context,
+          Get.context!,
           textColor: Colors.white,
           background: Colors.pink[300] ?? Colors.white,
           borderRadius: 16,
           initialDatePickerMode: CupertinoDatePickerMode.date,
           locale: Locale('vi', 'VN'),
-          initialDate: _startDate,
+          initialDate: controller.startDate.value,
           minimumDate: DateTime(0),
           maximumDate: DateTime.now(),
           minimumYear: 1,
           maximumYear: DateTime.now().year,
           onDateTimeChanged: (newDateTime) {
-            setState(() {
-              if (newDateTime.isBefore(DateTime.now())) {
-                _startDate = newDateTime;
-              }
-            });
+            if (newDateTime.isBefore(DateTime.now())) {
+              controller.startDate.value = newDateTime;
+            }
           },
         );
       },
@@ -263,16 +243,18 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
             Radius.circular(10),
           ),
         ),
-        width: MediaQuery.of(context).size.width,
+        width: Get.width,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 20),
           child: Row(
             children: [
-              Text(
-                Jiffy.parseFromDateTime(_startDate).yMMMMEEEEd,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
+              Obx(
+                () => Text(
+                  Jiffy.parseFromDateTime(controller.startDate.value).yMMMMEEEEd,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
                 ),
               ),
               Spacer(),

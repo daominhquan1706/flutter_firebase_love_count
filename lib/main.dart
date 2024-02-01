@@ -1,12 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_lovecount/biz/app_controller.dart';
 import 'package:flutter_lovecount/firebase_options.dart';
-import 'package:flutter_lovecount/model/user_model.dart';
+import 'package:flutter_lovecount/routes/app_pages.dart';
 import 'package:flutter_lovecount/services/authentication_service.dart';
-import 'package:flutter_lovecount/view/home_view.dart';
-import 'package:flutter_lovecount/view/login_view.dart';
-import 'package:flutter_lovecount/services/authentication_service.dart';
+import 'package:flutter_lovecount/pages/home/home_view.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,22 +29,15 @@ class App extends StatelessWidget {
           Theme.of(context).textTheme,
         ),
       ),
-      home: AuthenticationWrapper(),
       locale: Locale('en', 'US'), // Việt Nam
       supportedLocales: [
         const Locale('en', 'US'), // English
         const Locale('vi', 'VN'), // Việt Nam
       ],
+      initialRoute: Routes.SPLASH,
+      getPages: AppPages.pages,
+      initialBinding: AppBindings(),
     );
-  }
-}
-
-class AuthenticationWrapper extends StatelessWidget {
-  const AuthenticationWrapper({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return HomePage();
   }
 }
 
@@ -56,5 +47,6 @@ class AppBindings extends Bindings {
   void dependencies() {
     // Get.lazyPut<IAddressRepository>(() => AddressRepository(Get.find()), fenix: true);
     Get.put(AuthenticationService());
+    Get.put(AppController());
   }
 }
